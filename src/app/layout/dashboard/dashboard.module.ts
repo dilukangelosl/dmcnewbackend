@@ -8,11 +8,14 @@ import {
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import {TaskService} from '../../shared/services/task/task.service';
 import {
     TimelineComponent,
     NotificationComponent,
     ChatComponent
 } from './components';
+
+
 import { StatModule } from '../../shared';
 
 @NgModule({
@@ -28,6 +31,7 @@ import { StatModule } from '../../shared';
         TimelineComponent,
         NotificationComponent,
         ChatComponent
-    ]
+    ],
+    providers:[TaskService]
 })
 export class DashboardModule { }

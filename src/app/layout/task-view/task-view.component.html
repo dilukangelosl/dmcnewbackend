@@ -1,0 +1,132 @@
+<div [@routerTransition]>
+        <h2 class="text-muted">Dashboard <small>Statistics Overview</small></h2>
+    
+       
+    
+    
+       
+    
+       
+        
+        
+        <div class="row" *ngIf="loaded">
+            <div class="col-lg-8">
+    
+                
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                          </agm-map>
+
+                         
+    
+                  
+            
+            </div>
+            <!-- /.col-lg-8 -->
+            <div class="col-lg-4">
+                <!-- chat card-->
+                <div class="card card-default">
+                    
+                    <div class="chat-panel card card-default">
+                            <div class="card-header">
+                                <i class="fa fa-comments fa-fw"></i>
+                                Chat
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="card-block">
+
+                                   
+                                            <ul class="chat">
+                                                    <li class=" clearfix" *ngFor="let c of chat | async" [ngClass]="{'left': c.sender == 1, 'right': c.sender != 1}">
+                                                        <span class="chat-img pull-left">
+                                                            <img src="https://pickaface.net/gallery/avatar/20151205_194059_2696_Chat.png" alt="User Avatar" class="img-circle">
+                                                        </span>
+                                                        <div class="chat-body clearfix" >
+                                                            <div class="header">
+                                                                <strong class="primary-font" *ngIf="task != null">{{task.agentname}}</strong>
+                                                                <small class="pull-right text-muted">
+                                                                   <!-- <i class="fa fa-clock-o fa-fw"></i> 12 mins ago -->
+                                                                </small>
+                                                            </div>
+                                                            <p>
+                                                               {{c.message}}
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                    
+                                                    
+                                                    
+                                                </ul>
+
+                                   
+                               
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                    <fieldset [disabled]="status">
+                                            <div class="input-group">
+                                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." name="Message" [(ngModel)]="message">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-warning btn-sm" id="btn-chat" (click)="sendchatMessage(message)">
+                                                            Send
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                    </fieldset>
+                                
+                            </div>
+                            <!-- /.card-footer -->
+                        </div>
+                        
+                </div>
+                <!-- /.card -->
+
+                
+                <!-- Status-->
+                <div class="card card-default" style="margin-top:10px;" >
+                        
+                        <div class="chat-panel card card-default" >
+                                <div class="card-header">
+                                    <i class="fa fa-comments fa-fw"></i>
+                                    Task Status
+                                </div>
+                                <!-- /.panel-heading -->
+                                
+                                <div class="card-block">
+                                   <div class="chat" style="height:200px;">
+                                        
+
+                                            <fieldset [disabled]="status">
+                                                    
+                                                    <div class="input-group">
+                                                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your Closing reason..." name="Message" [(ngModel)]="statusmessage">
+                                                        
+                                                        </div>
+            
+                                                        <button class="btn btn-danger btn-lg" id="btn-chat" style="margin-top:10px;width:100%;" (click)="closestatus(statusmessage)">
+                                                               Close Ticket
+                                                        </button>
+            
+                                                        <div class="ticketdetails">
+                                                            <p>Status : {{task.status}}</p>
+                                                            <p>Response Message : {{task.responseMessage}}</p>
+                                                            <p>Details : {{task.statusdetails}}</p>
+                                                        </div>              
+                                                    
+                                            </fieldset>
+                                   </div>
+                                </div>
+                                <!-- /.card-body -->
+                               
+                                <!-- /.card-footer -->
+                            </div>
+                            
+                    </div>
+                    <!-- /.card -->
+    
+                
+                <!-- /.card .chat-card -->
+            </div>
+            <!-- /.col-lg-4 -->
+        </div>
+    </div>

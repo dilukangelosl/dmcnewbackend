@@ -1,46 +1,112 @@
 <div [@routerTransition]>
     <h2 class="text-muted">Dashboard <small>Statistics Overview</small></h2>
-    <div class="row">
-        <div class="col-md-12">
-            <ngb-carousel>
-                <ng-template ngbSlide *ngFor="let slider of sliders">
-                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="100%">
-                    <div class="carousel-caption">
-                        <h3>{{slider.label}}</h3>
-                        <p>{{slider.text}}</p>
-                    </div>
-                </ng-template>
-            </ngb-carousel>
-        </div>
-    </div>
+
     <hr>
+
+
     <div class="row">
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-primary'" [icon]="'fa-comments'" [count]="26" [label]="'New Comments!'" ></app-stat>
+        <div class="col-xl-4 col-lg-6">
+            <app-stat [bgClass]="'card-primary'" [icon]="'fa-list'" [count]="allTasks.length" [label]="'ALL TASKS'"></app-stat>
         </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-info'" [icon]="'fa-tasks'" [count]="12" [label]="'New task!'" ></app-stat>
+        <div class="col-xl-4 col-lg-6">
+            <app-stat [bgClass]="'card-danger'" [icon]="'fa-sticky-note-o'" [count]="pendingTasks.length" [label]="'PENDING TASKS'"></app-stat>
         </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-success'" [icon]="'fa-shopping-cart'" [count]="124" [label]="'New Orders!'" ></app-stat>
+        <div class="col-xl-4 col-lg-6">
+            <app-stat [bgClass]="'card-success'" [icon]="'fa-check'" [count]="completedTasks.length" [label]="'COMPLETED TASKS'"></app-stat>
         </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-danger'" [icon]="'fa-support'" [count]="13" [label]="'New Tickets!'"></app-stat>
+
+    </div>
+
+    <!-- filters -->
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group" class="filterbox">
+                <label>Task Time Filter</label>
+                <select class="form-control" (ngModelChange)="filter($event)">
+                        <option>Today's Tasks</option>
+                        <option>All Tasks</option>
+                       
+                    </select>
+            </div>
         </div>
     </div>
+
+    <!-- end filters -->
     <hr />
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
     <hr />
     <div class="row">
         <div class="col-lg-8">
+
+            <!-- Pending -->
             <div class="card card-default">
                 <div class="card-header">
-                    <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+                    <i class="fa fa-clock-o fa-fw"></i> Pending Timeline
                 </div>
-                <!-- /.card-header -->
-                <app-timeline></app-timeline>
-                <!-- /.card-body -->
+                <!-- main section -->
+
+                <div class="row" style="padding:20px;">
+                    <div class="col-xl-4 col-lg-6 col-sm-12 col-xs-12" *ngFor="let task of pendingTasks">
+                        <div class="card mb-3">
+                            <div class="card-header card-danger" style="color:white">
+                                {{getDifference(task.reportdate)}} ago
+                            </div>
+                            <div class="card-block">
+                                <div style="clear:both"></div>
+
+                                <div [ngStyle]="{'background-image':'url(' + task.photo + ')','background-size':'cover','height':'200px','width':'100%','background-position':'center'}">
+
+                                </div>
+
+                                <div class="details">
+                                    <p>Type : {{task.type}}</p>
+                                    <p>City : {{task.city}}</p>
+
+                                </div>
+                                <button type="button" class="btn btn-primary" style="width: 100%;border-radius:0; " (click)="show(task)">View Task</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end main section -->
             </div>
+            <!-- End Pending -->
+            <!-- start Completed -->
+            <div class="card card-default">
+                <div class="card-header">
+                    <i class="fa fa-clock-o fa-fw"></i> Completed Timeline
+                </div>
+                <!-- main section -->
+
+                <div class="row" style="padding:20px;">
+                    <div class="col-xl-4 col-lg-6 col-sm-12 col-xs-12" *ngFor="let task of completedTasks">
+                        <div class="card mb-3">
+                            <div class="card-header card-success" style="color:white">
+                                {{getDifference(task.reportdate)}} ago
+                            </div>
+                            <div class="card-block">
+                                <div [ngStyle]="{'background-image':'url(' + task.photo + ')','background-size':'cover','height':'200px','width':'100%','background-position':'center'}">
+
+                                </div>
+
+                                <div class="details">
+                                    <p>Type : {{task.type}}</p>
+                                    <p>City : {{task.city}}</p>
+
+                                </div>
+                                <button type="button" class="btn btn-primary" style="width: 100%;border-radius:0; " (click)="show(task)">View Task</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end main section -->
+            </div>
+            <!-- end Completed -->
+
             <!-- /.card -->
         </div>
         <!-- /.col-lg-8 -->

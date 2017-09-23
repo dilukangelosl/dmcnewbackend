@@ -8,6 +8,23 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AgmCoreModule } from '@agm/core';
+
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyCc4h9Ovb4aCbUpyNcBNEUUUHtqciNLneI",
+    authDomain: "disastermanagement-ee84a.firebaseapp.com",
+    databaseURL: "https://disastermanagement-ee84a.firebaseio.com",
+    projectId: "disastermanagement-ee84a",
+    storageBucket: "disastermanagement-ee84a.appspot.com",
+    messagingSenderId: "895647762366"
+};
+
+
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
     // for development
@@ -24,6 +41,12 @@ export function HttpLoaderFactory(http: Http) {
         FormsModule,
         HttpModule,
         AppRoutingModule,
+        AngularFireModule.initializeApp(firebaseConfig),
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBf0G_rJKN8FCnBmGx1bvBPcnY8ncDklKA'
+          }),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
