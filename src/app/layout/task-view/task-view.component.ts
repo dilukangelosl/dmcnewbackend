@@ -4,6 +4,7 @@ import {TaskService} from '../../shared/services/task/task.service';
 import { routerTransition } from '../../router.animations';
 import {  FirebaseListObservable } from 'angularfire2/database';
 import * as moment from 'moment';
+import {GalleryService} from  'ng-gallery';
 @Component({
     selector: 'app-blank-page',
     templateUrl: './task-view.component.html',
@@ -24,7 +25,9 @@ export class TaskViewComponent implements OnInit {
     chat:FirebaseListObservable<any> ;
     status:boolean = true;
     statusmessage:any = null;
-    constructor(private route: ActivatedRoute, private router:Router, private taskservice:TaskService) {
+    images:any [] ;
+    god:boolean = false ;
+    constructor(private route: ActivatedRoute,private gallery: GalleryService, private router:Router, private taskservice:TaskService) {
         let i = JSON.parse(localStorage.getItem("user"));
         this.agentId = i.uid;
     }
@@ -32,6 +35,7 @@ export class TaskViewComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(res => {
             this.taskId = res.task;
+            this.god = res.god;
             this.getTask();
             this.getChat();
         })
@@ -75,8 +79,16 @@ else{
     getTask(){
         this.taskservice.getTask(this.taskId).subscribe(res => {
             this.task = res;
-            console.log(res);
-            if(this.task.agent != this.agentId){
+            this.images = [
+                {
+                  src: this.task.photo,
+                  thumbnail: this.task.photo,
+                  text: 'Disaster Preview'
+                }
+              ];
+              this.gallery.load(this.images);
+            //console.log(res);
+            if(this.task.agent != this.agentId && this.god == false ){
                 alert("Insufficient Permissions");
             }
             else{
@@ -86,6 +98,7 @@ else{
                 }
                 this.taskservice.getVictimDetails(this.task.userid).then((user) => {
                     this.victim = user;
+                    console.log(this.victim);
                         this.loaded = true;
                         
                 })

@@ -26,6 +26,10 @@ export class TaskService {
     )
   }
 
+  getGodsallTasks(){
+    return this.afDB.list("/disaster/");
+  }
+
 
   closeTask(taskId,message){
     return new Promise((resolve,reject) =>{

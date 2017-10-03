@@ -12,7 +12,11 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AgmCoreModule } from '@agm/core';
+import { GalleryModule ,GalleryConfig} from 'ng-gallery';
 
+export const galleryConfig : GalleryConfig = {
+   
+  }
 
 export const firebaseConfig = {
     apiKey: "AIzaSyCc4h9Ovb4aCbUpyNcBNEUUUHtqciNLneI",
@@ -41,6 +45,7 @@ export function HttpLoaderFactory(http: Http) {
         FormsModule,
         HttpModule,
         AppRoutingModule,
+        GalleryModule.forRoot(galleryConfig),
         AngularFireModule.initializeApp(firebaseConfig),
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBf0G_rJKN8FCnBmGx1bvBPcnY8ncDklKA'

@@ -5,16 +5,18 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import {AuthService} from '../shared/services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
-import {AlertComponent,ProgressbarComponent } from '../layout/bs-component/components';
+
+import {BsComponentModule} from '../layout/bs-component/bs-component.module';
 @NgModule({
     imports: [
         CommonModule,
         LoginRoutingModule,
         FormsModule,
+        BsComponentModule,
         NgbModule.forRoot(),
     ],
     providers:[AuthService],
-    declarations: [LoginComponent,ProgressbarComponent,AlertComponent]
+    declarations: [LoginComponent]
 })
 export class LoginModule {
 }
