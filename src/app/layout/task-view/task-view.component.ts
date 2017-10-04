@@ -45,7 +45,7 @@ export class TaskViewComponent implements OnInit {
     sendchatMessage(message){
        
 
-        if(this.task.status =! "Closed"){
+     
             this.chat.push({
                 sender:0,
                 message:message,
@@ -53,7 +53,7 @@ export class TaskViewComponent implements OnInit {
             }).then((res) =>{
                 this.message = "";
             })
-        }
+        
     }
 
 
