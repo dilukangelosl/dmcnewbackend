@@ -19,7 +19,9 @@
 
                          
     
-                  
+                          <gallery></gallery>
+
+                         
             
             </div>
             <!-- /.col-lg-8 -->
@@ -63,7 +65,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                    <fieldset [disabled]="status">
+                                    <fieldset [disabled]="status || god">
                                             <div class="input-group">
                                                     <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." name="Message" [(ngModel)]="message">
                                                     <span class="input-group-btn">
@@ -76,6 +78,8 @@
                                 
                             </div>
                             <!-- /.card-footer -->
+
+                            
                         </div>
                         
                 </div>
@@ -96,7 +100,7 @@
                                    <div class="chat" style="height:200px;">
                                         
 
-                                            <fieldset [disabled]="status">
+                                            <fieldset [disabled]="status || god">
                                                     
                                                     <div class="input-group">
                                                             <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your Closing reason..." name="Message" [(ngModel)]="statusmessage">
@@ -123,7 +127,39 @@
                             
                     </div>
                     <!-- /.card -->
-    
+                    
+                     <!-- Status-->
+                <div class="card card-default" style="margin-top:10px;" >
+                    
+                    <div class="chat-panel card card-default" >
+                            <div class="card-header">
+                                <i class="fa fa-comments fa-fw"></i>
+                                Vistim Details
+                            </div>
+                            <!-- /.panel-heading -->
+                            
+                            <div class="card-block">
+                               <div class="chat" style="height:150px;">
+                                    
+                                <div class="container" style="padding:15px;">
+                                    <h2 style="font-size:20px;"> Name : {{victim.fullname}}</h2>
+                                    <h2 style="font-size:20px;"> Phone : {{victim.phone}}</h2>
+                                    <h2 style="font-size:20px;"> NIC : {{victim.nic}}</h2>
+                                    <h2 style="font-size:20px;"> Contact : {{task.contact}}</h2>
+                                </div>
+                                
+                               </div>
+                            </div>
+                            <!-- /.card-body -->
+                           
+                            <!-- /.card-footer -->
+                        </div>
+                        
+                </div>
+                <!-- /.card -->
+
+
+                   
                 
                 <!-- /.card .chat-card -->
             </div>

@@ -1,0 +1,17 @@
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <agm-marker *ngFor="let marker of pendingTaks" [latitude]="marker.latlng.lat" [longitude]="marker.latlng.lng" >
+        <agm-info-window>
+            <h2>{{marker.type}}</h2>
+            <button (click)="show(marker)">View</button>
+        </agm-info-window>
+    </agm-marker>
+  </agm-map>
+
+
+  <div style="display:block;position:absolute;top:20px;padding:10px;font-size:20px;color:red;left:30px;width:250px;background:#1b1b1b;">
+    Pending Tasks : {{pendingTaks.length}}
+
+    <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-dashboard"></i> Back to Dashboard
+    </a>
+  </div>
