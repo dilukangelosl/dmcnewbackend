@@ -36,6 +36,9 @@ export class TaskViewComponent implements OnInit {
         this.route.params.subscribe(res => {
             this.taskId = res.task;
             this.god = res.god;
+            if(this.god){
+                this.status = true;
+            }
             this.getTask();
             this.getChat();
         })

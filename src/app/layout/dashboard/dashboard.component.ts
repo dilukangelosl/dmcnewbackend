@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
 
     show(task){
         
-        this.router.navigate(['/task-view', {task: task.$key,god:true}]);
+        this.router.navigate(['/task-view', {task: task.$key,god:false}]);
     }
 
     
