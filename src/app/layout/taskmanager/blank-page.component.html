@@ -1,0 +1,71 @@
+<div [@routerTransition] style="height:100vh;">
+    <h2 class="text-muted">Task Manager <small>View All Tasks</small></h2>
+
+    
+
+
+  
+  
+    <div class="card">
+        <div class="card-header">Select Agents <span *ngIf="loading" style="color:red;font-weight:bold;margin-left:15px;">Loading Tasks Please Wait....</span></div>
+        <div class="card-block">
+           
+            <div class="row">
+                <div class="col-md-3">
+                    
+
+                    <div class="form-group">
+                        <label>Select Agent</label>
+                        <select class="form-control" [(ngModel)]="agentID">
+                             <option value='all'>All</option>
+                            <option *ngFor="let agent of Agents" [value]="agent.uid">{{agent.name}}</option>
+                        </select>
+                        <button class="btn btn-outline-primary" style="margin-top:10px;" (click)="viewtasks()" >View Tasks</button>
+                    </div>
+
+                    
+                </div>
+               
+            </div>
+            
+               
+            </div>
+        </div>
+
+
+        <div class="col-md-12 col-xl-12 col-lg-12">
+                <div class="card mb-3" style="margin-top:20px;width:100%;">
+                    <div class="card-header">Tasks</div>
+                    <div class="card-block table-responsive">
+                        <table class="table table-inverse">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Agent</th>
+                                <th>Type</th>
+                                <th>City</th>
+                                <th>Status</th>
+                                <th>View</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let task of tasks">
+                                <th scope="row">{{formatDate(task.reportdate)}}</th>
+                                <td>{{task.agentname}}</td>
+                                <td>{{task.type}}</td>
+                                <td>{{task.city}}</td>
+                                <td [style.color]="task.status == 'Pending' ? 'red' : '#5bb85b'">{{task.status}}</td>
+                                <td><button class="btn btn-success" (click)="viewtask(task)">View</button></td>
+                            </tr>
+                            
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              
+               
+    
+    
+   
+</div>

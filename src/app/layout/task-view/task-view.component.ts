@@ -27,6 +27,7 @@ export class TaskViewComponent implements OnInit {
     statusmessage:any = null;
     images:any [] ;
     god:boolean = false ;
+
     constructor(private route: ActivatedRoute,private gallery: GalleryService, private router:Router, private taskservice:TaskService) {
         let i = JSON.parse(localStorage.getItem("user"));
         this.agentId = i.uid;
@@ -82,6 +83,8 @@ else{
     getTask(){
         this.taskservice.getTask(this.taskId).subscribe(res => {
             this.task = res;
+
+        
             this.images = [
                 {
                   src: this.task.photo,
@@ -91,10 +94,8 @@ else{
               ];
               this.gallery.load(this.images);
             //console.log(res);
-            if(this.task.agent != this.agentId && this.god == false ){
-                alert("Insufficient Permissions");
-            }
-            else{
+           
+            
                 if(res.status != "Closed"){
                     console.log("setting status to false");
                     this.status = false;
@@ -109,8 +110,14 @@ else{
 
                 this.lat = this.task.latlng.lat;
                 this.lng = this.task.latlng.lng;
-                console.log(this.task.agent == this.agentId);
-            }
+             
+
+                if(this.task.agent != this.agentId  ){
+                    console.log("3rd Person Found - Setting Ticket To False")
+                    this.status = true;
+                     
+                 }
+            
         })
     }
 }

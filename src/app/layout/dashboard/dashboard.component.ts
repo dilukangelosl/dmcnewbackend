@@ -16,15 +16,28 @@ export class DashboardComponent implements OnInit {
     public allTasks:any = [];
     public completedTasks :any = [];
     public pendingTasks :any = [];
-
+    audio:any ;
     constructor(public taskService:TaskService, public router:Router) {
+
+        this.audio = new Audio();
+        this.audio.src = "./assets/sounds/alarm.mp3";
+        this.audio.load();
       
         let item:FirebaseListObservable<any> =  this.taskService.getAllTasks();
         item.subscribe(res => {
-           this.makearray(res);
+            console.log(res);
+           this.allTasks = res;
            this.allTasks.reverse();
             this.completedTasks = this.taskService.getAllCompletedTasks(this.allTasks);
             this.pendingTasks = this.taskService.getAllPendingTasks(this.allTasks);
+        })
+
+        this.taskService.getAlertObservable().subscribe(res => {
+           
+
+           
+            this.audio.play();
+            alert("Pending Tasks Avaiable");
         })
     }
 

@@ -13,6 +13,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AgmCoreModule } from '@agm/core';
 import { GalleryModule ,GalleryConfig} from 'ng-gallery';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 export const galleryConfig : GalleryConfig = {
    
@@ -60,7 +61,8 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [AuthGuard],
+    providers: [AuthGuard,
+        {provide: LocationStrategy, useClass: HashLocationStrategy}],
     bootstrap: [AppComponent]
 })
 export class AppModule {
